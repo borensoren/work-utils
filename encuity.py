@@ -7,6 +7,9 @@ import sys
 sys.path.append('C:\Python34\Lib\pyperclip-1.3')
 
 def get_counts(table_name):
+    '''
+    Method written to generate a specific SQL statement, never used
+    '''
     import pyperclip
     
     string = '''
@@ -38,6 +41,8 @@ def get_counts(table_name):
 def list_append(seperator=True):
     '''
     This reads a file locally and turns a list of values into a list usable in a SQL select statement.
+    
+    The optional seperator determines if the values should be enclosed with quotation marks.
     '''
     value_list = []
     
@@ -48,6 +53,7 @@ def list_append(seperator=True):
     for line in foo:
         value_list.append(line.strip())
     if not seperator:
+        #remove [ ] from python list
         pyperclip.copy('('+re.sub("'","",str(value_list))[1:-1]+')')
         spam = pyperclip.paste()
     else:
@@ -61,6 +67,10 @@ def list_append(seperator=True):
     foo.close()
     
 def new_match_request(project_name):
+    '''
+    Script that launches a new "match request" project.
+    Template for a match request was changed and this is no longer used.
+    '''
     table_name = "JM_MR_"++project_name+'_'+datetime.datetime.now().strftime("%Y%m%d")
     menaMatch = table_name+"_MENA" 
     mephMatch = table_name+"_MEPH"
@@ -78,6 +88,10 @@ def new_match_request(project_name):
     
   
 def new_adhoc(project_name, specialty_list):
+    '''
+    Script that launches a new ad hoc project.
+    Template changed, moved toward keeping work on shared drives so this is no longer used.
+    '''
     date = datetime.datetime.now()
     now = date.strftime("%Y-%m-%d")
 
@@ -121,7 +135,9 @@ def new_adhoc(project_name, specialty_list):
     shutil.copyfile('C:/Users/jmclaughlin/encuity/about.txt',folder+'/about.txt')
 
 def kol_xml_parse(input_xml, output_authors, output_pubtypes):
-
+    '''
+    Reads xml files pubmed MeSH search for processing that's later finished in SQL server
+    '''
     import xml.etree.ElementTree as ET
 
     tree = ET.parse(input_xml)
